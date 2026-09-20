@@ -33,7 +33,18 @@ class UserRepository {
             });
             return user;
         } catch (error) {
-            console.log('Something went wrong while get the user');
+            console.log('Something went wrong while get the user via id');
+            throw error;
+        }
+    }
+
+    async getByEmail(userEmail) {
+        try {
+            const user = await User.findOne({where: {
+                email: userEmail
+            }});
+        } catch (error) {
+            console.log('Something went wrong while get the user via email');
             throw error;
         }
     }
