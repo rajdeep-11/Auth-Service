@@ -14,7 +14,7 @@ class UserRepository {
 
     async destroy(userId) {
         try {
-            const response = User.destroy({
+            const response = await User.destroy({
                 where: {
                     id: userId
                 }
@@ -26,14 +26,17 @@ class UserRepository {
         }
     }
 
-    // async get(userId) {
-    //     try {
-    //         const user = await this.get()
-    //     } catch (error) {
-    //         console.log('Something went wrong in repo layer during get User');
-    //         throw error;
-    //     }
-    // }
+    async getById(userId) {
+        try {
+            const user = await User.findByPk(userId, {
+                attributes: ['email', 'id']
+            });
+            return user;
+        } catch (error) {
+            console.log('Something went wrong while get the user');
+            throw error;
+        }
+    }
 }
 
 module.exports = UserRepository;

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const { SERVERCONFIG } = require('./config');
 const apiRoutes = require('./routes');
 
-//const { User } = require('./models/index')
+//const { UserRepository } = require('./repositories')
 
 const serverPort = SERVERCONFIG.PORT;
 
@@ -18,7 +18,12 @@ app.use('/api', apiRoutes)
 const prepareAndStartServer = () => {
     app.listen(serverPort, async () => {
         console.log(`Server running at PORT ${serverPort}`);
-        //console.log(User);
+
+        //check the get by Id:
+
+        // const userRepo = new UserRepository;
+        // const response = await userRepo.getById(3);
+        // console.log(response);
     });
 }
 
