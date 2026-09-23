@@ -43,6 +43,7 @@ class UserRepository {
             const user = await User.findOne({where: {
                 email: userEmail
             }});
+            return user;
         } catch (error) {
             console.log('Something went wrong while get the user via email');
             throw error;
