@@ -41,9 +41,29 @@ class UserService {
         }
     }
 
+    //verify the token:
+    //get the user id from the requstedToken using {user_id, email}:
+    //save the user.id in req objcet:
+    async isAuthenticated(token) {
+        try {
+            const response = this.verifyToken(token);
+            if (!response) {
+                throw { error: 'Invalid token' }
+            }
+            const user = await this.userRepository.getById(response.id);
+            if (!user) {
+                throw { error: 'No user exist with this token' }
+            }
+            return user.id;
+        } catch (error) {
+            console.log('Something went wrong while Authentication');
+            throw error;
+        }
+    }
+
     createToken(user) {
         try {
-            const result = jwt.sign(user, JWT_KEY, {expiresIn: '1d'});
+            const result = jwt.sign(user, JWT_KEY, { expiresIn: '1d' });
             return result;
         } catch (error) {
             console.log('Something went wrong in jwt creation');
